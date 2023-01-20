@@ -19,7 +19,12 @@ export const CategoryList = () => {
   }));
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', flex:1},
+    { 
+      field: 'name', 
+      headerName: 'Name', 
+      flex:1,
+      renderCell: renderNameCell,
+    },
     { 
       field: 'isActive', 
       headerName: 'Active', 
@@ -39,6 +44,19 @@ export const CategoryList = () => {
       renderCell: renderActionsCell
     },
   ];
+
+  function renderNameCell(rowData: GridRenderCellParams) {
+    return (
+            <Link
+                style={{ textDecoration: "none" }}
+                to={`/categories/edit/${rowData.id}`}
+            >
+                <Typography color="primary">{rowData.value}</Typography>
+            </Link>
+    )
+} 
+
+
   function renderActionsCell(params: GridRenderCellParams){
     return (
       <IconButton

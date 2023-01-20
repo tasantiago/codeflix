@@ -5,27 +5,23 @@ import { Category } from '../categorySlice';
 
 type Props = {
   category: Category;
-  isdisabled: boolean;
+  isdisabled?: boolean;
+  isLoading?: boolean;
   onSubmit: (e:React.FormEvent<HTMLFormElement>)=>void;
+  handleChange: (e:React.ChangeEvent<HTMLInputElement>)=>void;
+  handleToggle: (e:React.ChangeEvent<HTMLInputElement>)=>void;
 };
 
 
-export function CategoryFrom() {
+export function CategoryFrom({
+  category,
+  isdisabled = false,
+  isLoading = false,
+  onSubmit,
+  handleChange,
+  handleToggle,
+}:Props) {
 
-  const [isdisabled, setIsdisabled] = useState(false);
-  const [category, setCategory] = useState<Category>({
-    id: "",
-    name: "",
-    is_active: false,
-    created_at: "",
-    updated_at: "",
-    deleted_at: "",
-    description: "",
-  })
-
-  const handleChange = (e:any) => {};
-  const handleToggle = (e:any) => {};
-  
   return (
     <Box p={2}>
     <form>

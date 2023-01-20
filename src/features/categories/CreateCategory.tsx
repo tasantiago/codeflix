@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { Category, selectCategoryById } from "./categorySlice";
+import { CategoryFrom } from "./components/CategoryFrom";
 
 export const CategoryCreate = () => {
 
@@ -28,7 +29,14 @@ export const CategoryCreate = () => {
             <Typography variant="h4">Create Category</Typography>
           </Box>
         </Box>
-
+        <CategoryFrom
+          category={category}
+          isdisabled={isdisabled}
+          isLoading={false}
+          onSubmit={() =>{}}
+          handleChange={handleChange}
+          handleToggle={handleToggle}
+        />
 
       </Paper>
     </Box>
