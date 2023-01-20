@@ -8,9 +8,15 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { CategoryList } from './features/categories/ListCategory';
 import { CategoryCreate } from './features/categories/CreateCategory';
 import { CategoryEdit } from './features/categories/EditCategory';
+import { SnackbarProvider } from 'notistack';
 
 function App() {
     return <ThemeProvider theme={appTheme }>
+      <SnackbarProvider 
+        autoHideDuration={2000}
+        maxSnack={3}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
       <Box component="main"
           sx={{
               height: "100vh",
@@ -33,6 +39,7 @@ function App() {
           </Routes>
         </Layout>
       </Box>
+      </SnackbarProvider>
     </ThemeProvider>;
 }
 

@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Category, selectCategoryById, updateCategory } from "./categorySlice";
 import { CategoryFrom } from "./components/CategoryFrom";
+import { useSnackbar } from "notistack";
 
 export const CategoryEdit = () => {
 
@@ -13,10 +14,12 @@ export const CategoryEdit = () => {
   const category = useAppSelector((state) => selectCategoryById(state, id));
   const [categoryState, setCategoryState] = useState<Category>(category); 
   const dispatch = useAppDispatch();
+  const {enqueueSnackbar} = useSnackbar();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(updateCategory(categoryState))
+    enqueueSnackbar("Category updated sucessfully", {variant:"success"})
 
   }
 
