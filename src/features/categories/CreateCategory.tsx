@@ -1,14 +1,14 @@
 import { Box, Button, FormControl, FormControlLabel, FormGroup, Grid, Paper, Switch, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { Category, selectCategoryById } from "./categorySlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Category, createCategory, selectCategoryById } from "./categorySlice";
 import { CategoryFrom } from "./components/CategoryFrom";
 
 export const CategoryCreate = () => {
 
   const [isdisabled, setIsdisabled] = useState(false);
-  const [category, setCategory] = useState<Category>({
+  const [categoryState, setCategoryState] = useState<Category>({
     id: "",
     name: "",
     is_active: false,
@@ -17,9 +17,23 @@ export const CategoryCreate = () => {
     deleted_at: "",
     description: "",
   })
+  const dispatch = useAppDispatch();
 
-  const handleChange = (e:any) => {};
-  const handleToggle = (e:any) => {};
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    dispatch(createCategory(categoryState))
+
+  }
+
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const {name , value} = e.target;
+    setCategoryState({...categoryState, [name]:value});
+  };
+
+  const handleToggle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const {name , checked} = e.target;
+    setCategoryState({...categoryState, [name]:checked});
+  };
 
   return (
     <Box>
@@ -30,12 +44,12 @@ export const CategoryCreate = () => {
           </Box>
         </Box>
         <CategoryFrom
-          category={category}
+          category={categoryState}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          handleToggle={handleToggle}
           isdisabled={isdisabled}
           isLoading={false}
-          onSubmit={() =>{}}
-          handleChange={handleChange}
-          handleToggle={handleToggle}
         />
 
       </Paper>
